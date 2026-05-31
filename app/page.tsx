@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Phone, MessageCircle, Award, CircleDollarSign, ChevronDown } from 'lucide-react';
 import { GiQuillInk } from 'react-icons/gi';
 import Image from 'next/image';
@@ -13,15 +13,34 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center">
+      {/* Top Spacer / Header Area simulating empty nav */}
+      <div className="w-full h-[76px] md:h-[104px] bg-white relative z-30 border-b border-gray-100">
+        {/* Logo overlapping top edge of hero image */}
+        <div className="absolute top-0 left-4 md:left-16 bg-white rounded-b-2xl md:rounded-b-[2rem] shadow-md w-36 h-[140px] md:w-56 md:h-[190px] flex items-center justify-center">
+          <div className="relative w-full h-full scale-[1.25] md:scale-[1.35] origin-center -translate-x-2 md:-translate-x-3 translate-y-3 md:translate-y-4">
+            <Image
+              src="/logo.png"
+              alt="לוגו תפילין בוצ'קו"
+              fill
+              sizes="(max-width: 768px) 144px, 224px"
+              className="object-contain"
+              priority
+              unoptimized
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Hero Section matching Flyer Layout */}
-      <section id="hero" className="w-full flex flex-col items-center bg-white">
+      <section id="hero" className="w-full flex flex-col items-center bg-white relative z-10">
         {/* Top Image: Tefillin on Tallit */}
         <div className="w-full bg-[#fdfcf9]">
-          <div className="w-full relative h-[260px] md:h-[400px] overflow-hidden mt-2">
+          <div className="w-full relative h-[260px] md:h-[450px] overflow-hidden">
             <Image
               src="/tefillin.PNG"
               alt="תפילין מהודרות על טלית לבנה"
               fill
+              sizes="100vw"
               className="object-cover object-[center_40%] drop-shadow-sm"
               priority
               unoptimized
@@ -93,10 +112,10 @@ export default function LandingPage() {
               </div>
             </div>
             <ul className="space-y-3 text-gray-600 text-start w-full">
-              <li>הוסמך לרבנות.</li>
-              <li>הוסמך ע&quot;י מכון יד רפאל כסופר סת&quot;ם ומגיה.</li>
+              <li>נפתלי בוצ&apos;קו הוסמך ע&quot;י מכון יד רפאל כסופר סת&quot;ם ומגיה.</li>
               <li><span className="font-bold text-[#0c1b2c]">17 שנות ניסיון</span> בכתיבת סת&quot;ם.</li>
               <li>מומלץ על ידי רבנים.</li>
+              <li>הוסמך לרבנות.</li>
               <li>לימד כתיבת סת&quot;ם בישיבת היכל אליהו.</li>
             </ul>
           </motion.div>
