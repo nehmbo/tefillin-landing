@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Phone, MessageCircle, Award, CircleDollarSign, ChevronDown } from 'lucide-react';
+import { Phone, MessageCircle } from 'lucide-react';
 import { GiQuillInk } from 'react-icons/gi';
 import Image from 'next/image';
 import AccessibilityWidget from "../components/AccessibilityWidget";
@@ -20,13 +20,13 @@ export default function LandingPage() {
         <div className="absolute top-0 left-4 md:left-16 bg-white rounded-b-2xl md:rounded-b-[2rem] shadow-md w-36 h-[140px] md:w-56 md:h-[190px] flex items-center justify-center">
           <div className="relative w-full h-full scale-[1.25] md:scale-[1.35] origin-center -translate-x-2 md:-translate-x-3 translate-y-3 md:translate-y-4">
             <Image
-              src="/logo.png"
+              src="/logo.avif"
               alt="לוגו תפילין בוצ'קו"
               fill
               sizes="(max-width: 768px) 144px, 224px"
               className="object-contain"
               priority
-              unoptimized
+              // הוסר unoptimized כדי לאפשר ל-Next.js לכווץ את התמונה
             />
           </div>
         </div>
@@ -38,13 +38,13 @@ export default function LandingPage() {
         <div className="w-full bg-[#fdfcf9]">
           <div className="w-full relative h-[260px] md:h-[450px] overflow-hidden">
             <Image
-              src="/tefillin.PNG"
+              src="/tefillin.avif"
               alt="תפילין מהודרות על טלית לבנה"
               fill
               sizes="100vw"
               className="object-cover object-[center_40%] drop-shadow-sm"
               priority
-              unoptimized
+              // הוסר unoptimized כדי לאפשר ל-Next.js לכווץ את התמונה
             />
             {/* Soft overlay to ensure transition to content */}
             <div className="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-white/60 to-transparent z-10"></div>
