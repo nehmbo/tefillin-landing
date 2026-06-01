@@ -14,10 +14,20 @@ export const metadata: Metadata = {
     icon: '/favicon.png',
   },
   openGraph: {
-    title: 'תפילין בוצ\'קו - מצוינות בכתיבת סת"ם',
-    description: 'מיועד למי שרוצה להדר ולהשקיע במצוות תפילין. כתיבה בטהרה, ניסיון של 17 שנים.',
-    type: 'website',
+    title: "תפילין בוצ'קו | תפילין מהודרות בכתב ספרדי",
+    description: "מיועד למי שרוצה להדר ולהשקיע במצוות תפילין. כתיבה בטהרה, ניסיון של 17 שנים.",
+    url: 'https://tefillin-botchko.com',
+    siteName: "תפילין בוצ'קו",
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: "תפילין בוצ'קו - סמל",
+      },
+    ],
     locale: 'he_IL',
+    type: 'website',
   }
 };
 
