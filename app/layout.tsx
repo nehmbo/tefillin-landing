@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter, Heebo, Rubik } from 'next/font/google';
 import './globals.css';
 import AccessibilityWidget from "../components/AccessibilityWidget";
+import { GoogleAnalytics } from '@next/third-parties/google';
+
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const heebo = Heebo({ subsets: ['hebrew'], variable: '--font-heebo' });
 const rubik = Rubik({ subsets: ['hebrew'], variable: '--font-rubik' });
@@ -35,6 +37,9 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="he" dir="rtl" className={`${inter.variable} ${heebo.variable} ${rubik.variable}`}>
       <body suppressHydrationWarning className="font-heebo font-sans antialiased bg-[#fdfcf9] text-[#1a1a1a]">
+        {/* פה הוספנו את תגית המעקב */}
+        <GoogleAnalytics gaId="G-K58CG2QL4F" />
+        
         {children}
       </body>
     </html>
