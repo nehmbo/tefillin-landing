@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { Phone, MessageCircle, Award, CircleDollarSign, ChevronDown } from 'lucide-react';
 import { GiQuillInk } from 'react-icons/gi';
 import Image from 'next/image';
+import AccessibilityWidget from "../components/AccessibilityWidget";
 
 export default function LandingPage() {
   const whatsappNumber = '972545581548';
@@ -171,6 +172,9 @@ export default function LandingPage() {
         </div>
       </main>
 
+      {/* Accessibility Widget added safely here */}
+      <AccessibilityWidget />
+
       {/* Footer / Contact Section */}
       <footer className="w-full bg-white border-t border-gray-200 py-16 px-4 mt-auto">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
@@ -200,6 +204,13 @@ export default function LandingPage() {
 
           <div className="mt-16 text-gray-400 text-sm">
             <p>&copy; {new Date().getFullYear()} תפילין בוצ&apos;קו. כל הזכויות שמורות.</p>
+            <div className="flex justify-center gap-4 mt-4 text-sm">
+              <a href="/accessibility-statement" className="hover:underline hover:text-gray-600 transition-colors">הצהרת נגישות</a>
+              <span>|</span>
+              <a href="/privacy-policy" className="hover:underline hover:text-gray-600 transition-colors">מדיניות פרטיות</a>
+              <span>|</span>
+              <a href="/cookie-policy" className="hover:underline hover:text-gray-600 transition-colors">מדיניות עוגיות</a>
+            </div>
           </div>
         </div>
       </footer>

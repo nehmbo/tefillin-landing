@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Heebo, Rubik } from 'next/font/google';
 import './globals.css';
-
+import AccessibilityWidget from "../components/AccessibilityWidget";
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const heebo = Heebo({ subsets: ['hebrew'], variable: '--font-heebo' });
 const rubik = Rubik({ subsets: ['hebrew'], variable: '--font-rubik' });
