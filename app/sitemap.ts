@@ -9,10 +9,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      // אם קראת לעמוד הנגישות בשם אחר (כמו accessibility), שנה פה את המילה nagishut בהתאם לכתובת האמיתית
-      url: 'https://tefillin-botchko.com/nagishut',
+      url: 'https://tefillin-botchko.com/accessibility-statement',
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'yearly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://tefillin-botchko.com/privacy-policy',
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://tefillin-botchko.com/cookie-policy',
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
       priority: 0.8,
     },
   ]
