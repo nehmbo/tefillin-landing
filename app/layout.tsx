@@ -3,7 +3,7 @@ import { Inter, Heebo, Rubik } from 'next/font/google';
 import './globals.css';
 import AccessibilityWidget from "../components/AccessibilityWidget";
 import { GoogleAnalytics } from '@next/third-parties/google';
-
+import { Analytics } from '@vercel/analytics/react';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const heebo = Heebo({ subsets: ['hebrew'], variable: '--font-heebo' });
 const rubik = Rubik({ subsets: ['hebrew'], variable: '--font-rubik' });
@@ -51,6 +51,9 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         />
         
         {children}
+        
+        {/* האנליטיקס של ורסל */}
+        <Analytics />
       </body>
     </html>
   );
