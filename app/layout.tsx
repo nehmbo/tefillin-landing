@@ -37,6 +37,19 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         {/* פה הוספנו את תגית המעקב */}
         <GoogleAnalytics gaId="G-K58CG2QL4F" />
         
+        {/* קוד נתונים מובנים (Schema) עבור גוגל להצגת שם האתר */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "תפילין בוצ'קו",
+              "url": "https://tefillin-botchko.com/"
+            })
+          }}
+        />
+        
         {children}
       </body>
     </html>
