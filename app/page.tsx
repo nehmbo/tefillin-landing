@@ -114,7 +114,7 @@ export default function LandingPage() {
 
       {/* Main Content */}
       <main className="max-w-6xl w-full px-4 py-16 -mt-8 relative z-30">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-12 md:gap-8">
           
           {/* Experience Card */}
           <motion.div 
