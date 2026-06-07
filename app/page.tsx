@@ -28,7 +28,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col items-center relative">
       {/* Top Spacer / Header Area simulating empty nav */}
-      <div className="w-full h-[76px] md:h-[104px] bg-white relative z-35 border-b border-gray-100">
+      <div className="w-full h-[76px] md:h-[104px] bg-white relative z-10 border-b border-gray-100">
         {/* Logo overlapping top edge of hero image */}
         <div className="absolute top-0 left-4 md:left-16 bg-white rounded-b-2xl md:rounded-b-[2rem] shadow-md w-36 h-[140px] md:w-56 md:h-[190px] flex items-center justify-center">
           <div className="relative w-full h-full scale-[1.25] md:scale-[1.35] origin-center -translate-x-2 md:-translate-x-3 translate-y-3 md:translate-y-4">
@@ -361,7 +361,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer / Contact Section */}
-      <footer className="w-full bg-white border-t border-gray-200 py-16 px-4 mt-auto relative z-30">
+      <footer className="w-full bg-white border-t border-gray-200 py-16 px-4 mt-auto relative z-10">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
           <h3 className="text-2xl font-bold mb-4 text-[#0c1b2c]">להזמנות ובירורים:</h3>
           

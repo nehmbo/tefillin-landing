@@ -65,8 +65,8 @@ export default function FloatingLetters() {
   if (!mounted) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none select-none z-40 overflow-hidden">
-      {/* Container set to z-40 so that letters pass ON TOP of everything (header, logo, cards, and footer) */}
+    <div className="fixed inset-0 pointer-events-none select-none z-20 overflow-hidden">
+      {/* Container set to z-20 so that letters pass behind the main cards (z-30) but on top of header/hero/footer (z-10) */}
       {floatingItems.map((item) => (
         <motion.div
           key={item.id}
