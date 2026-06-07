@@ -155,30 +155,8 @@ export default function LandingPage() {
                 <circle cx="50" cy="50" r="38" fill="none" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="3 2" opacity="0.8" />
                 <circle cx="50" cy="50" r="35" fill="none" stroke="#e2e8f0" strokeWidth="0.5" opacity="0.5" />
                 
-                {/* Text along circular paths */}
-                <defs>
-                  {/* Top arc path for "למעלה מ" */}
-                  <path id="badgeTopPath" d="M 20 50 A 30 30 0 0 1 80 50" fill="none" />
-                  {/* Bottom arc path for "שנות ניסיון" */}
-                  <path id="badgeBottomPath" d="M 80 50 A 30 30 0 0 1 20 50" fill="none" />
-                </defs>
-                
-                {/* Top Text */}
-                <text className="fill-slate-200 text-[7px] font-bold font-rubik tracking-wider" textAnchor="middle">
-                  <textPath href="#badgeTopPath" startOffset="50%">
-                    למעלה מ
-                  </textPath>
-                </text>
-                
-                {/* Bottom Text */}
-                <text className="fill-slate-200 text-[6.5px] font-bold font-rubik tracking-wider" textAnchor="middle">
-                  <textPath href="#badgeBottomPath" startOffset="50%">
-                    שנות ניסיון
-                  </textPath>
-                </text>
-                
                 {/* Center text "17+" */}
-                <text x="50" y="58" className="fill-white text-[22px] font-black font-rubik" textAnchor="middle">
+                <text x="50" y="50" dominantBaseline="central" className="fill-white text-[26px] font-black font-rubik" textAnchor="middle">
                   17+
                 </text>
               </svg>
