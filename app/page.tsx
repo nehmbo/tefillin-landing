@@ -6,6 +6,7 @@ import { Phone, Award, X, Scroll, Search } from 'lucide-react';
 import { GiQuillInk } from 'react-icons/gi';
 import { FaWhatsapp } from 'react-icons/fa';
 import Image from 'next/image';
+import FloatingLetters from '../components/FloatingLetters';
 
 export default function LandingPage() {
   const [activeCert, setActiveCert] = React.useState<{ src: string; title: string } | null>(null);
@@ -27,6 +28,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center relative">
+      <FloatingLetters />
       {/* Top Spacer / Header Area simulating empty nav */}
       <div className="w-full h-[76px] md:h-[104px] bg-white relative z-10 border-b border-gray-100">
         {/* Logo overlapping top edge of hero image */}

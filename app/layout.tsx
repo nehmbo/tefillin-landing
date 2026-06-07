@@ -4,7 +4,6 @@ import './globals.css';
 import AccessibilityWidget from "../components/AccessibilityWidget";
 import CookieBanner from "../components/CookieBanner";
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
-import FloatingLetters from "../components/FloatingLetters";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -60,7 +59,6 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         <AccessibilityWidget />
         <CookieBanner />
         <FloatingWhatsApp />
-        <FloatingLetters />
         
         {/* האנליטיקס של ורסל */}
         <Analytics />
