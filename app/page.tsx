@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { Phone, MessageCircle } from 'lucide-react';
 import { GiQuillInk } from 'react-icons/gi';
 import Image from 'next/image';
-import AccessibilityWidget from "../components/AccessibilityWidget";
 
 export default function LandingPage() {
   const whatsappNumber = '972545581548';
@@ -171,9 +170,6 @@ export default function LandingPage() {
           </motion.div>
         </div>
       </main>
-
-      {/* Accessibility Widget added safely here */}
-      <AccessibilityWidget />
 
       {/* Footer / Contact Section */}
       <footer className="w-full bg-white border-t border-gray-200 py-16 px-4 mt-auto">
