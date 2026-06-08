@@ -72,7 +72,8 @@ export default function LandingPage() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            className="text-[#0c1b2c] text-4xl md:text-5xl font-bold font-[family-name:var(--font-rubik)] mb-2 text-center leading-tight"
+            className="text-[#0c1b2c] text-4xl md:text-5xl mb-2 text-center leading-tight font-normal"
+            style={{ fontFamily: 'StamSefarad' }}
           >
             תפילין בוצ&apos;קו
           </motion.h1>
@@ -118,48 +119,67 @@ export default function LandingPage() {
           
           {/* Experience Card */}
           <motion.div 
-            whileHover={{ y: -5 }}
-            className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col group h-full"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            whileHover="hover"
+            variants={{
+              hover: {
+                y: -8,
+                scale: 1.015,
+                boxShadow: "0 20px 25px -5px rgba(12, 27, 44, 0.1), 0 10px 10px -5px rgba(12, 27, 44, 0.04)"
+              }
+            }}
+            className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col h-full"
           >
             <div className="flex justify-between items-start w-full mb-6">
               <h2 className="text-2xl font-bold text-[#0c1b2c] mt-2">ניסיון</h2>
-              <svg 
-                viewBox="0 0 100 100" 
-                className="w-16 h-16 shrink-0 group-hover:-rotate-6 group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_4px_6px_rgba(12,27,44,0.15)]"
+              <motion.div
+                variants={{
+                  hover: { rotate: -8, scale: 1.15 }
+                }}
+                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                className="w-16 h-16 shrink-0"
               >
-                {/* Wavy/ruffled wax seal shape matching the uploaded image */}
-                <path 
-                  d="M 50 4 
-                     C 57 4, 60 9, 66 11 
-                     C 72 13, 79 11, 83 16 
-                     C 87 21, 85 28, 88 34 
-                     C 91 40, 96 44, 96 50 
-                     C 96 56, 91 60, 88 66 
-                     C 85 72, 87 79, 83 84 
-                     C 79 89, 72 87, 66 89 
-                     C 60 91, 57 96, 50 96 
-                     C 43 96, 40 91, 34 89 
-                     C 28 87, 21 89, 17 84 
-                     C 13 79, 15 72, 12 66 
-                     C 9 60, 4 56, 4 50 
-                     C 4 44, 9 40, 12 34 
-                     C 15 28, 13 21, 17 16 
-                     C 21 11, 28 13, 34 11 
-                     C 40 9, 43 4, 50 4 Z" 
-                  fill="#0c1b2c" 
-                  stroke="#e2e8f0" 
-                  strokeWidth="1.5"
-                />
-                
-                {/* Inner circular border */}
-                <circle cx="50" cy="50" r="38" fill="none" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="3 2" opacity="0.8" />
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#e2e8f0" strokeWidth="0.5" opacity="0.5" />
-                
-                {/* Center text "17+" */}
-                <text x="50" y="50" dominantBaseline="central" className="fill-white text-[26px] font-black font-rubik" textAnchor="middle">
-                  17+
-                </text>
-              </svg>
+                <svg 
+                  viewBox="0 0 100 100" 
+                  className="w-full h-full drop-shadow-[0_4px_6px_rgba(12,27,44,0.15)]"
+                >
+                  {/* Wavy/ruffled wax seal shape matching the uploaded image */}
+                  <path 
+                    d="M 50 4 
+                       C 57 4, 60 9, 66 11 
+                       C 72 13, 79 11, 83 16 
+                       C 87 21, 85 28, 88 34 
+                       C 91 40, 96 44, 96 50 
+                       C 96 56, 91 60, 88 66 
+                       C 85 72, 87 79, 83 84 
+                       C 79 89, 72 87, 66 89 
+                       C 60 91, 57 96, 50 96 
+                       C 43 96, 40 91, 34 89 
+                       C 28 87, 21 89, 17 84 
+                       C 13 79, 15 72, 12 66 
+                       C 9 60, 4 56, 4 50 
+                       C 4 44, 9 40, 12 34 
+                       C 15 28, 13 21, 17 16 
+                       C 21 11, 28 13, 34 11 
+                       C 40 9, 43 4, 50 4 Z" 
+                    fill="#0c1b2c" 
+                    stroke="#e2e8f0" 
+                    strokeWidth="1.5"
+                  />
+                  
+                  {/* Inner circular border */}
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="3 2" opacity="0.8" />
+                  <circle cx="50" cy="50" r="35" fill="none" stroke="#e2e8f0" strokeWidth="0.5" opacity="0.5" />
+                  
+                  {/* Center text "17+" */}
+                  <text x="50" y="50" dominantBaseline="central" className="fill-white text-[26px] font-black font-rubik" textAnchor="middle">
+                    17+
+                  </text>
+                </svg>
+              </motion.div>
             </div>
             <ul className="space-y-3 text-gray-600 text-start w-full">
               <li>נפתלי בוצ&apos;קו הוסמך ע&quot;י מכון יד רפאל כסופר סת&quot;ם ומגיה.</li>
@@ -169,35 +189,55 @@ export default function LandingPage() {
               <li>לימד כתיבת סת&quot;ם בישיבת היכל אליהו.</li>
             </ul>
             
-            <div className="mt-auto flex gap-2 w-full">
-              <button 
+            <div className="mt-auto flex gap-2 w-full pt-4">
+              <motion.button 
+                whileHover={{ scale: 1.04, y: -1 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setActiveCert({ src: '/sofer.avif', title: 'תעודת סופר סת״ם' })}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition duration-200 cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition-colors duration-200 cursor-pointer"
               >
                 <Scroll size={13} />
                 <span className="whitespace-nowrap">תעודת סופר</span>
-              </button>
-              <button 
+              </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.04, y: -1 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setActiveCert({ src: '/megiha.avif', title: 'תעודת מגיה מוסמך' })}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition duration-200 cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition-colors duration-200 cursor-pointer"
               >
                 <Search size={13} />
                 <span className="whitespace-nowrap">תעודת מגיה</span>
-              </button>
+              </motion.button>
             </div>
           </motion.div>
 
           {/* Writing Style Card */}
           <motion.div 
-            whileHover={{ y: -5 }}
-            transition={{ delay: 0.1 }}
-            className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col group h-full"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+            whileHover="hover"
+            variants={{
+              hover: {
+                y: -8,
+                scale: 1.015,
+                boxShadow: "0 20px 25px -5px rgba(12, 27, 44, 0.1), 0 10px 10px -5px rgba(12, 27, 44, 0.04)"
+              }
+            }}
+            className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col h-full"
           >
             <div className="flex justify-between items-start w-full mb-6">
               <h2 className="text-2xl font-bold text-[#0c1b2c] mt-2">כתיבה - ספרדי</h2>
-              <div className="w-14 h-14 flex items-center justify-center text-[#0c1b2c] group-hover:-rotate-6 group-hover:scale-110 transition-transform shrink-0">
+              <motion.div 
+                variants={{
+                  hover: { rotate: -12, scale: 1.15, y: -2 }
+                }}
+                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                className="w-14 h-14 flex items-center justify-center text-[#0c1b2c] shrink-0"
+              >
                 <GiQuillInk size={56} className="text-[#0c1b2c]" />
-              </div>
+              </motion.div>
             </div>
             <ul className="space-y-3 text-gray-600 text-start w-full">
               <li>מומחה לכתיבת תפילין רגיל, בינוני וקטן - פצפון.</li>
@@ -207,10 +247,12 @@ export default function LandingPage() {
               <li>כתיבה בטהרה.</li>
             </ul>
             
-            <div className="mt-auto flex gap-2 w-full">
-              <button 
+            <div className="mt-auto flex gap-2 w-full pt-4">
+              <motion.button 
+                whileHover={{ scale: 1.04, y: -1 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setActiveCert({ src: '/ketav.avif', title: 'דוגמת כתב יד ספרדי' })}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition duration-200 cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition-colors duration-200 cursor-pointer"
               >
                 <svg viewBox="0 0 24 24" className="w-[13px] h-[13px] text-[#0c1b2c] shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" fill="currentColor" fillOpacity="0.15" />
@@ -221,10 +263,12 @@ export default function LandingPage() {
                   <line x1="9" x2="7.5" y1="11" y2="12.5" />
                 </svg>
                 <span className="whitespace-nowrap">דוגמת הכתב</span>
-              </button>
-              <button 
+              </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.04, y: -1 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setActiveCert({ src: '/batimm.avif', title: 'דוגמת בתי תפילין מהודרים' })}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition duration-200 cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition-colors duration-200 cursor-pointer"
               >
                 <svg viewBox="0 0 24 24" className="w-[13px] h-[13px] text-[#0c1b2c] shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <polygon points="12 2 20 6 12 10 4 6" fill="currentColor" fillOpacity="0.2" />
@@ -233,19 +277,35 @@ export default function LandingPage() {
                   <polygon points="12 17 22 13 12 9 2 13" strokeWidth="1.5" />
                 </svg>
                 <span className="whitespace-nowrap">דוגמת בתים</span>
-              </button>
+              </motion.button>
             </div>
           </motion.div>
 
           {/* Price Card */}
           <motion.div 
-            whileHover={{ y: -5 }}
-            transition={{ delay: 0.2 }}
-            className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col group h-full"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+            whileHover="hover"
+            variants={{
+              hover: {
+                y: -8,
+                scale: 1.015,
+                boxShadow: "0 20px 25px -5px rgba(12, 27, 44, 0.1), 0 10px 10px -5px rgba(12, 27, 44, 0.04)"
+              }
+            }}
+            className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col h-full"
           >
             <div className="flex justify-between items-start w-full mb-4">
               <h2 className="text-2xl font-bold text-[#0c1b2c] mt-2">מחיר התפילין</h2>
-              <div className="w-14 h-14 border-2 border-[#0c1b2c] bg-[#fdfcf9] rounded-full flex items-center justify-center text-[#0c1b2c] group-hover:-rotate-6 group-hover:scale-110 transition-transform shrink-0 shadow-sm overflow-hidden">
+              <motion.div 
+                variants={{
+                  hover: { scale: 1.15, rotate: 3, y: -3 }
+                }}
+                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                className="w-14 h-14 border-2 border-[#0c1b2c] bg-[#fdfcf9] rounded-full flex items-center justify-center text-[#0c1b2c] shrink-0 shadow-sm overflow-hidden"
+              >
                 <svg 
                   viewBox="0 0 100 100" 
                   className="w-10 h-10 text-[#0c1b2c]"
@@ -320,7 +380,7 @@ export default function LandingPage() {
                     strokeLinecap="round" 
                   />
                 </svg>
-              </div>
+              </motion.div>
             </div>
             <div className="mb-4 text-start">
               <ul className="space-y-3 text-base text-gray-700 mb-4">
