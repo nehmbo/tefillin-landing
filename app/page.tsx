@@ -51,6 +51,7 @@ export default function LandingPage() {
               sizes="100vw"
               className="object-cover object-[center_40%] drop-shadow-sm"
               priority
+              fetchPriority="high"
             />
             {/* Soft overlay to ensure transition to content */}
             <div className="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-white/60 to-transparent z-10" />
@@ -327,21 +328,21 @@ export default function LandingPage() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-lg hover:bg-[#20ba5a] hover:scale-103 active:scale-97 transition-all duration-200 w-full"
+              className="flex items-center justify-center gap-3 bg-[#075E54] text-white font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-lg hover:bg-[#128C7E] hover:scale-103 active:scale-97 transition-all duration-200 w-full"
             >
               <FaWhatsapp size={26} />
               <span>צרו קשר ב-WhatsApp</span>
             </a>
           </div>
 
-          <div className="mt-16 text-gray-400 text-sm">
+          <div className="mt-16 text-gray-600 text-sm">
             <p>&copy; {new Date().getFullYear()} תפילין בוצ&apos;קו. כל הזכויות שמורות.</p>
             <div className="flex justify-center gap-4 mt-4 text-sm">
-              <a href="/accessibility-statement" className="hover:underline hover:text-gray-600 transition-colors">הצהרת נגישות</a>
-              <span>|</span>
-              <a href="/privacy-policy" className="hover:underline hover:text-gray-600 transition-colors">מדיניות פרטיות</a>
-              <span>|</span>
-              <a href="/cookie-policy" className="hover:underline hover:text-gray-600 transition-colors">מדיניות עוגיות</a>
+              <a href="/accessibility-statement" className="text-gray-600 hover:text-[#0c1b2c] hover:underline transition-colors">הצהרת נגישות</a>
+              <span className="text-gray-300">|</span>
+              <a href="/privacy-policy" className="text-gray-600 hover:text-[#0c1b2c] hover:underline transition-colors">מדיניות פרטיות</a>
+              <span className="text-gray-300">|</span>
+              <a href="/cookie-policy" className="text-gray-600 hover:text-[#0c1b2c] hover:underline transition-colors">מדיניות עוגיות</a>
             </div>
           </div>
         </div>

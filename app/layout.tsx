@@ -23,6 +23,7 @@ const stamAshkenaz = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://tefillin-botchko.com'),
   title: "תפילין בוצ'קו | תפילין מהודרות בכתב ספרדי",
   description: "תפילין מהודרות הנכתבות בטהרה ובדיוק רב על ידי נפתלי בוצ'קו, סופר סתם מוסמך ובעל ניסיון של 17 שנים. כתיבה ספרדית נקייה ומדויקת.",
   keywords: "תפילין, בוצ'קו, סופר סתם, כתב ספרדי, תפילין מהודרות, נפתלי בוצ'קו, כתיבת סתם, תפילין פצפונים",
@@ -47,6 +48,10 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="he" dir="rtl" className={`${inter.variable} ${heebo.variable} ${rubik.variable} ${stamSefarad.variable} ${stamAshkenaz.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+      </head>
       <body suppressHydrationWarning className="font-heebo font-sans antialiased bg-[#fdfcf9] text-[#1a1a1a]">
         {/* פה הוספנו את תגית המעקב */}
         <GoogleAnalytics gaId="G-K58CG2QL4F" />

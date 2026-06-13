@@ -67,7 +67,7 @@ export default function CookieBanner() {
           </div>
 
           {/* Action Links */}
-          <div className="text-[11px] text-gray-400">
+          <div className="text-[11px] text-gray-300">
             למידע נוסף, קרא את{" "}
             <Link href="/cookie-policy" className="text-amber-400 hover:text-amber-300 underline font-medium transition-colors">
               מדיניות העוגיות
