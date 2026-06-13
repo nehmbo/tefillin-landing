@@ -1,21 +1,5 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'StamSefarad';
-  src: url('/fonts/StamSefaradCLM.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'StamAshkenaz';
-  src: url('/fonts/StamAshkenazCLM.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -26,6 +10,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-stam-sefarad: var(--font-stam-sefarad);
+  --font-stam-ashkenaz: var(--font-stam-ashkenaz);
 }
 
 @media (prefers-color-scheme: dark) {

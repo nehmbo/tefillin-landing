@@ -1,57 +1,18 @@
 "use client";
 
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Award, X, Scroll, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Phone, Scroll, Search } from 'lucide-react';
 import { GiQuillInk } from 'react-icons/gi';
 import { FaWhatsapp } from 'react-icons/fa';
 import Image from 'next/image';
-import FloatingLetters from '../components/FloatingLetters';
+import dynamic from 'next/dynamic';
+
+// Dynamically import heavy interactive client components
+const FloatingLetters = dynamic(() => import('../components/FloatingLetters'), { ssr: false });
+const CertificateModal = dynamic(() => import('../components/CertificateModal'), { ssr: false });
 
 export default function LandingPage() {
-  const [activeCert, setActiveCert] = React.useState<{ src: string | string[]; title: string } | null>(null);
-  const [carouselIndex, setCarouselIndex] = React.useState(0);
-  const [carouselDirection, setCarouselDirection] = React.useState(0);
-
-  React.useEffect(() => {
-    setCarouselIndex(0);
-  }, [activeCert]);
-
-  const paginate = React.useCallback((newDirection: number) => {
-    if (!activeCert || !Array.isArray(activeCert.src)) return;
-    const images = activeCert.src;
-    setCarouselDirection(newDirection);
-    setCarouselIndex((prevIndex) => {
-      let nextIndex = prevIndex + newDirection;
-      if (nextIndex < 0) nextIndex = images.length - 1;
-      if (nextIndex >= images.length) nextIndex = 0;
-      return nextIndex;
-    });
-  }, [activeCert]);
-
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!activeCert || !Array.isArray(activeCert.src)) return;
-      if (e.key === 'ArrowLeft') {
-        paginate(1);
-      } else if (e.key === 'ArrowRight') {
-        paginate(-1);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeCert, paginate]);
-
-  React.useEffect(() => {
-    if (activeCert) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [activeCert]);
+  const [activeCert, setActiveCert] = useState<{ src: string | string[]; title: string } | null>(null);
 
   const whatsappNumber = '972545581548';
   const whatsappMessage = encodeURIComponent('שלום וברכה,\nראיתי את הפרסום שלך באתר אשמח לקבל פרטים נוספים על התפילין.');
@@ -60,6 +21,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col items-center relative">
       <FloatingLetters />
+      
       {/* Top Spacer / Header Area simulating empty nav */}
       <div className="w-full h-[76px] md:h-[104px] bg-white relative z-[15] border-b border-gray-100">
         {/* Logo overlapping top edge of hero image */}
@@ -72,7 +34,6 @@ export default function LandingPage() {
               sizes="(max-width: 768px) 144px, 224px"
               className="object-contain"
               priority
-              // הוסר unoptimized כדי לאפשר ל-Next.js לכווץ את התמונה
             />
           </div>
         </div>
@@ -90,37 +51,25 @@ export default function LandingPage() {
               sizes="100vw"
               className="object-cover object-[center_40%] drop-shadow-sm"
               priority
-              // הוסר unoptimized כדי לאפשר ל-Next.js לכווץ את התמונה
             />
-            {/* Soft overlay to ensure transition to content (restored) */}
+            {/* Soft overlay to ensure transition to content */}
             <div className="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-white/60 to-transparent z-10" />
           </div>
         </div>
         
         {/* Title and Banner Section - Visible and not obscured */}
         <div className="w-full py-4 px-4 flex flex-col items-center bg-white relative z-10">
-          <motion.h1 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="text-[#0c1b2c] text-4xl md:text-5xl mb-2 text-center leading-tight font-normal"
-            style={{ fontFamily: 'StamSefarad' }}
-          >
+          <h1 className="text-[#0c1b2c] text-4xl md:text-5xl mb-2 text-center leading-tight font-normal font-stam-sefarad">
             תפילין בוצ&apos;קו
-          </motion.h1>
+          </h1>
           
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="relative px-6 md:px-8 py-2 md:py-2.5 flex items-center justify-center max-w-lg"
-          >
+          <div className="relative px-6 md:px-8 py-2 md:py-2.5 flex items-center justify-center max-w-lg">
             {/* Irregular Bordeaux Banner Shape - Stylized like the flyer */}
             <div className="absolute inset-0 bg-[#7e191b] skew-x-[-2deg] rounded-md shadow-lg" />
             <p className="relative text-white text-sm md:text-lg font-bold text-center leading-relaxed">
               מיועד למי שרוצה להדר ולהשקיע במצוות תפילין
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -149,35 +98,14 @@ export default function LandingPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-y-12 md:gap-8">
           
           {/* Experience Card */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            whileHover="hover"
-            variants={{
-              hover: {
-                y: -8,
-                scale: 1.015,
-                boxShadow: "0 20px 25px -5px rgba(12, 27, 44, 0.1), 0 10px 10px -5px rgba(12, 27, 44, 0.04)"
-              }
-            }}
-            className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col h-full"
-          >
+          <div className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col h-full hover:-translate-y-2 hover:scale-[1.015] hover:shadow-2xl transition-all duration-300 ease-out group">
             <div className="flex justify-between items-start w-full mb-6">
               <h2 className="text-2xl font-bold text-[#0c1b2c] mt-2">ניסיון</h2>
-              <motion.div
-                variants={{
-                  hover: { rotate: -8, scale: 1.15 }
-                }}
-                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                className="w-16 h-16 shrink-0"
-              >
+              <div className="w-16 h-16 shrink-0 group-hover:-rotate-8 group-hover:scale-115 transition-transform duration-300 ease-out">
                 <svg 
                   viewBox="0 0 100 100" 
                   className="w-full h-full drop-shadow-[0_4px_6px_rgba(12,27,44,0.15)]"
                 >
-                  {/* Wavy/ruffled wax seal shape matching the uploaded image */}
                   <path 
                     d="M 50 4 
                        C 57 4, 60 9, 66 11 
@@ -200,17 +128,13 @@ export default function LandingPage() {
                     stroke="#e2e8f0" 
                     strokeWidth="1.5"
                   />
-                  
-                  {/* Inner circular border */}
                   <circle cx="50" cy="50" r="38" fill="none" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="3 2" opacity="0.8" />
                   <circle cx="50" cy="50" r="35" fill="none" stroke="#e2e8f0" strokeWidth="0.5" opacity="0.5" />
-                  
-                  {/* Center text "17+" */}
                   <text x="50" y="50" dominantBaseline="central" className="fill-white text-[26px] font-black font-rubik" textAnchor="middle">
                     17+
                   </text>
                 </svg>
-              </motion.div>
+              </div>
             </div>
             <ul className="space-y-3 text-gray-600 text-start w-full">
               <li>נפתלי בוצ&apos;קו הוסמך ע&quot;י מכון יד רפאל כסופר סת&quot;ם ומגיה.</li>
@@ -221,54 +145,30 @@ export default function LandingPage() {
             </ul>
             
             <div className="mt-auto flex gap-2 w-full pt-4">
-              <motion.button 
-                whileHover={{ scale: 1.04, y: -1 }}
-                whileTap={{ scale: 0.96 }}
+              <button 
                 onClick={() => setActiveCert({ src: '/sofer.avif', title: 'תעודת סופר סת״ם' })}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition-colors duration-200 cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm hover:scale-104 hover:-translate-y-0.5 active:scale-96 transition-all duration-200 cursor-pointer"
               >
                 <Scroll size={13} />
                 <span className="whitespace-nowrap">תעודת סופר</span>
-              </motion.button>
-              <motion.button 
-                whileHover={{ scale: 1.04, y: -1 }}
-                whileTap={{ scale: 0.96 }}
+              </button>
+              <button 
                 onClick={() => setActiveCert({ src: '/megiha.avif', title: 'תעודת מגיה מוסמך' })}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition-colors duration-200 cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm hover:scale-104 hover:-translate-y-0.5 active:scale-96 transition-all duration-200 cursor-pointer"
               >
                 <Search size={13} />
                 <span className="whitespace-nowrap">תעודת מגיה</span>
-              </motion.button>
+              </button>
             </div>
-          </motion.div>
+          </div>
 
           {/* Writing Style Card */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-            whileHover="hover"
-            variants={{
-              hover: {
-                y: -8,
-                scale: 1.015,
-                boxShadow: "0 20px 25px -5px rgba(12, 27, 44, 0.1), 0 10px 10px -5px rgba(12, 27, 44, 0.04)"
-              }
-            }}
-            className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col h-full"
-          >
+          <div className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col h-full hover:-translate-y-2 hover:scale-[1.015] hover:shadow-2xl transition-all duration-300 ease-out group">
             <div className="flex justify-between items-start w-full mb-6">
               <h2 className="text-2xl font-bold text-[#0c1b2c] mt-2">כתיבה - ספרדי</h2>
-              <motion.div 
-                variants={{
-                  hover: { rotate: -12, scale: 1.15, y: -2 }
-                }}
-                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                className="w-14 h-14 flex items-center justify-center text-[#0c1b2c] shrink-0"
-              >
+              <div className="w-14 h-14 flex items-center justify-center text-[#0c1b2c] shrink-0 group-hover:-rotate-12 group-hover:scale-115 group-hover:-translate-y-0.5 transition-transform duration-300 ease-out">
                 <GiQuillInk size={56} className="text-[#0c1b2c]" />
-              </motion.div>
+              </div>
             </div>
             <ul className="space-y-3 text-gray-600 text-start w-full">
               <li>מומחה לכתיבת תפילין רגיל, בינוני וקטן - פצפון.</li>
@@ -279,11 +179,9 @@ export default function LandingPage() {
             </ul>
             
             <div className="mt-auto flex gap-2 w-full pt-4">
-              <motion.button 
-                whileHover={{ scale: 1.04, y: -1 }}
-                whileTap={{ scale: 0.96 }}
+              <button 
                 onClick={() => setActiveCert({ src: '/ketav.avif', title: "דוגמת כתב יד ספרדי - נפתלי בוצ'קו" })}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition-colors duration-200 cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm hover:scale-104 hover:-translate-y-0.5 active:scale-96 transition-all duration-200 cursor-pointer"
               >
                 <svg viewBox="0 0 24 24" className="w-[13px] h-[13px] text-[#0c1b2c] shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" fill="currentColor" fillOpacity="0.15" />
@@ -294,52 +192,29 @@ export default function LandingPage() {
                   <line x1="9" x2="7.5" y1="11" y2="12.5" />
                 </svg>
                 <span className="whitespace-nowrap">דוגמת הכתב</span>
-              </motion.button>
-              <motion.button 
-                whileHover={{ scale: 1.04, y: -1 }}
-                whileTap={{ scale: 0.96 }}
+              </button>
+              <button 
                 onClick={() => setActiveCert({
                   src: ['/batimmeuzav.avif', '/baitmeuzav.avif', '/bait2meuzav.avif'],
                   title: 'דוגמת בתי תפילין מהודרים'
                 })}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm transition-colors duration-200 cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-[#0c1b2c]/20 hover:border-[#0c1b2c] hover:bg-gray-50 text-[#0c1b2c] rounded-xl text-[11px] font-bold shadow-sm hover:scale-104 hover:-translate-y-0.5 active:scale-96 transition-all duration-200 cursor-pointer"
               >
                 <svg viewBox="0 0 24 24" className="w-[13px] h-[13px] text-[#0c1b2c] shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <polygon points="12 2 20 6 12 10 4 6" fill="currentColor" fillOpacity="0.2" />
                   <polygon points="4 6 12 10 12 17 4 13" />
                   <polygon points="12 10 20 6 20 13 12 17" />
-                  <polygon points="12 17 22 13 12 9 2 13" strokeWidth="1.5" />
                 </svg>
                 <span className="whitespace-nowrap">דוגמת בתים</span>
-              </motion.button>
+              </button>
             </div>
-          </motion.div>
+          </div>
 
           {/* Price Card */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-            whileHover="hover"
-            variants={{
-              hover: {
-                y: -8,
-                scale: 1.015,
-                boxShadow: "0 20px 25px -5px rgba(12, 27, 44, 0.1), 0 10px 10px -5px rgba(12, 27, 44, 0.04)"
-              }
-            }}
-            className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col h-full"
-          >
+          <div className="bg-[#f0f6fc] p-8 rounded-2xl shadow-xl border border-[#d2e3f7]/60 flex flex-col h-full hover:-translate-y-2 hover:scale-[1.015] hover:shadow-2xl transition-all duration-300 ease-out group">
             <div className="flex justify-between items-start w-full mb-4">
               <h2 className="text-2xl font-bold text-[#0c1b2c] mt-2">מחיר התפילין</h2>
-              <motion.div 
-                variants={{
-                  hover: { scale: 1.15, rotate: 3, y: -3 }
-                }}
-                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                className="w-14 h-14 border-2 border-[#0c1b2c] bg-[#fdfcf9] rounded-full flex items-center justify-center text-[#0c1b2c] shrink-0 shadow-sm overflow-hidden"
-              >
+              <div className="w-14 h-14 border-2 border-[#0c1b2c] bg-[#fdfcf9] rounded-full flex items-center justify-center text-[#0c1b2c] shrink-0 shadow-sm overflow-hidden group-hover:scale-115 group-hover:rotate-3 group-hover:-translate-y-0.5 transition-transform duration-300 ease-out">
                 <svg 
                   viewBox="0 0 100 100" 
                   className="w-10 h-10 text-[#0c1b2c]"
@@ -414,7 +289,7 @@ export default function LandingPage() {
                     strokeLinecap="round" 
                   />
                 </svg>
-              </motion.div>
+              </div>
             </div>
             <div className="mb-4 text-start">
               <ul className="space-y-3 text-base text-gray-700 mb-4">
@@ -430,7 +305,7 @@ export default function LandingPage() {
               </ul>
             </div>
             <p className="font-bold text-[#0c1b2c] text-xs text-start mt-auto">המחיר כולל מע&quot;מ</p>
-          </motion.div>
+          </div>
         </div>
       </main>
 
@@ -448,17 +323,15 @@ export default function LandingPage() {
               </a>
             </div>
 
-            <motion.a 
+            <a 
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-lg hover:bg-[#20ba5a] transition-all duration-200 w-full"
+              className="flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-lg hover:bg-[#20ba5a] hover:scale-103 active:scale-97 transition-all duration-200 w-full"
             >
               <FaWhatsapp size={26} />
               <span>צרו קשר ב-WhatsApp</span>
-            </motion.a>
+            </a>
           </div>
 
           <div className="mt-16 text-gray-400 text-sm">
@@ -474,145 +347,8 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      {/* Scribe Certificate Modal */}
-      <AnimatePresence>
-        {activeCert && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActiveCert(null)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
-            />
-            
-            {/* Modal Container */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="relative max-w-lg md:max-w-2xl lg:max-w-4xl w-full max-h-[95vh] bg-white rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col items-center gap-3 z-10 mx-4 overflow-hidden"
-            >
-              {/* Header */}
-              <div className="flex justify-between items-center w-full pb-2.5 border-b border-gray-100">
-                <h3 className="font-bold text-sm md:text-base text-[#0c1b2c] font-rubik">{activeCert.title}</h3>
-                <button 
-                  onClick={() => setActiveCert(null)}
-                  className="p-1 hover:bg-gray-100 rounded-lg transition text-gray-500 hover:text-gray-800 cursor-pointer"
-                  aria-label="סגור"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-              
-              {/* Image or Carousel */}
-              <div className="relative w-full h-[65vh] md:h-[78vh] rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center">
-                {Array.isArray(activeCert.src) ? (
-                  <div className="relative w-full h-full overflow-hidden">
-                    <AnimatePresence initial={false} custom={carouselDirection}>
-                      <motion.div
-                        key={carouselIndex}
-                        custom={carouselDirection}
-                        variants={{
-                          enter: (dir: number) => ({
-                            x: dir > 0 ? '100%' : '-100%',
-                            opacity: 0
-                          }),
-                          center: {
-                            x: 0,
-                            opacity: 1
-                          },
-                          exit: (dir: number) => ({
-                            x: dir < 0 ? '100%' : '-100%',
-                            opacity: 0
-                          })
-                        }}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{
-                          x: { type: "spring", stiffness: 300, damping: 30 },
-                          opacity: { duration: 0.2 }
-                        }}
-                        drag="x"
-                        dragConstraints={{ left: 0, right: 0 }}
-                        dragElastic={1}
-                        onDragEnd={(e, info) => {
-                          if (info.offset.x < -50) {
-                            paginate(1);
-                          } else if (info.offset.x > 50) {
-                            paginate(-1);
-                          }
-                        }}
-                        className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing select-none"
-                      >
-                        <Image
-                          src={activeCert.src[carouselIndex]}
-                          alt={`${activeCert.title} - תמונה ${carouselIndex + 1}`}
-                          fill
-                          className="object-contain pointer-events-none"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 672px, 896px"
-                          priority
-                        />
-                      </motion.div>
-                    </AnimatePresence>
-
-                    {/* Navigation Arrows */}
-                    <button
-                      onClick={() => paginate(1)}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-white text-gray-800 hover:text-black rounded-full p-2.5 shadow-md hover:shadow-lg backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center justify-center"
-                      aria-label="תמונה הבאה"
-                    >
-                      <ChevronLeft size={20} />
-                    </button>
-                    
-                    <button
-                      onClick={() => paginate(-1)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-white text-gray-800 hover:text-black rounded-full p-2.5 shadow-md hover:shadow-lg backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center justify-center"
-                      aria-label="תמונה קודמת"
-                    >
-                      <ChevronRight size={20} />
-                    </button>
-
-                    {/* Image Counter */}
-                    <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-md text-xs font-bold font-rubik select-none" dir="ltr">
-                      {carouselIndex + 1} / {activeCert.src.length}
-                    </div>
-
-                    {/* Bullet Indicators */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20 bg-black/45 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                      {activeCert.src.map((_, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => {
-                            setCarouselDirection(idx > carouselIndex ? 1 : -1);
-                            setCarouselIndex(idx);
-                          }}
-                          className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                            idx === carouselIndex ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'
-                          }`}
-                          aria-label={`שקופית ${idx + 1}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <Image
-                    src={activeCert.src}
-                    alt={activeCert.title}
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 672px, 896px"
-                    priority
-                  />
-                )}
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+      {/* Scribe Certificate Modal dynamically loaded */}
+      <CertificateModal activeCert={activeCert} onClose={() => setActiveCert(null)} />
     </div>
   );
 }

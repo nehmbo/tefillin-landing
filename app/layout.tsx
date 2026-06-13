@@ -1,15 +1,26 @@
 import type { Metadata } from 'next';
 import { Inter, Heebo, Rubik } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
-import AccessibilityWidget from "../components/AccessibilityWidget";
-import CookieBanner from "../components/CookieBanner";
-import FloatingWhatsApp from "../components/FloatingWhatsApp";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/react';
+import ClientWidgetsWrapper from "../components/ClientWidgetsWrapper";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const heebo = Heebo({ subsets: ['hebrew'], variable: '--font-heebo' });
 const rubik = Rubik({ subsets: ['hebrew'], variable: '--font-rubik' });
+
+const stamSefarad = localFont({
+  src: '../public/fonts/StamSefaradCLM.ttf',
+  variable: '--font-stam-sefarad',
+  display: 'swap',
+});
+
+const stamAshkenaz = localFont({
+  src: '../public/fonts/StamAshkenazCLM.ttf',
+  variable: '--font-stam-ashkenaz',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: "תפילין בוצ'קו | תפילין מהודרות בכתב ספרדי",
@@ -35,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="he" dir="rtl" className={`${inter.variable} ${heebo.variable} ${rubik.variable}`}>
+    <html lang="he" dir="rtl" className={`${inter.variable} ${heebo.variable} ${rubik.variable} ${stamSefarad.variable} ${stamAshkenaz.variable}`}>
       <body suppressHydrationWarning className="font-heebo font-sans antialiased bg-[#fdfcf9] text-[#1a1a1a]">
         {/* פה הוספנו את תגית המעקב */}
         <GoogleAnalytics gaId="G-K58CG2QL4F" />
@@ -56,9 +67,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         {children}
         
         {/* רכיבים גלובליים */}
-        <AccessibilityWidget />
-        <CookieBanner />
-        <FloatingWhatsApp />
+        <ClientWidgetsWrapper />
         
         {/* האנליטיקס של ורסל */}
         <Analytics />
